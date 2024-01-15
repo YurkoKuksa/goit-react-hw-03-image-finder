@@ -1,6 +1,9 @@
 import React from 'react';
+import { LoaderBox } from './Loader.styled';
 
 export const Loader = () => {
-  return <div>Loader(https://github.com/mhnpd/react-loader-spinner)</div>;
+  return (
+    <LoaderBox>Loader(https://github.com/mhnpd/react-loader-spinner)</LoaderBox>
+  );
 };
 export default Loader;

@@ -1,14 +1,20 @@
 import styled from 'styled-components';
 
 export const MainContainer = styled.div`
-  height: 100vh;
+  /* height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-size: 40;
-  color: #010101;
-  background-color: #98f398;
+  font-size: 40; */
+  color: #e9eaf0;
+  background-color: #2e4ba3;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
+  padding-bottom: 24px;
+  text-shadow: ${({ theme }) => theme.shadows.medium};
 `;
 
 // export const HeaderTwo = styled.h2`

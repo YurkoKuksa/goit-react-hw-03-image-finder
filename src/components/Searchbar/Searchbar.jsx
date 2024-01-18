@@ -27,15 +27,7 @@ export class Searchbar extends Component {
       <SearchbarStyle>
         <SearchForm onSubmit={this.handleSubmit} autoFocus>
           <Button type="submit">
-            <SpanLabel>
-              {/* <svg width="48" height="48">
-                <use href="../img/symbol-defs.svg#find"></use>
-              </svg> */}
-
-              <svg>
-                <use href="../img/symbol-defs.svg#icon-find"></use>
-              </svg>
-            </SpanLabel>
+            <SpanLabel>Search</SpanLabel>
           </Button>
 
           <Input
@@ -51,3 +43,7 @@ export class Searchbar extends Component {
   }
 }
 export default Searchbar;
+
+// <svg>
+//   <use href="../img/symbol-defs.svg#icon-find"></use>
+// </svg>;

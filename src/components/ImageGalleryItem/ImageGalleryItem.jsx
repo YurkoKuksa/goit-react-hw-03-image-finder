@@ -5,11 +5,15 @@ export const ImageGalleryItem = ({ photo, openModal }) => {
   return (
     <GalleryItem
       onClick={() =>
-        openModal({ src: photo.urls.regular, alt: photo.alt_description })
+        openModal({
+          src: photo.largeImageURL,
+          alt: photo.tags,
+        })
       }
     >
-      <Picture src={photo.urls.small} alt={photo.alt_description} />
+      <Picture src={photo.webformatURL} alt={photo.tags} />
     </GalleryItem>
   );
 };
+
 export default ImageGalleryItem;

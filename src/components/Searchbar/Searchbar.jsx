@@ -25,15 +25,14 @@ export class Searchbar extends Component {
   render() {
     return (
       <SearchbarStyle>
-        <SearchForm onSubmit={this.handleSubmit}>
+        <SearchForm onSubmit={this.handleSubmit} autoFocus>
           <Button type="submit">
-            <SpanLabel class="button-label">Search</SpanLabel>
+            <SpanLabel>Search</SpanLabel>
           </Button>
 
           <Input
             type="text"
-            autocomplete="off"
-            autofocus
+            autoComplete="off"
             placeholder="Search images and photos"
             onChange={this.handleChange}
             required

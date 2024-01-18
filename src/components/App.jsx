@@ -7,7 +7,7 @@ import Loader from './Loader/Loader';
 import { Modal } from './Modal/Modal';
 import { toast } from 'react-toastify';
 
-import { MainContainer } from './App.styled';
+import { MainContainer, NoPictures } from './App.styled';
 export class App extends Component {
   state = {
     query: '',
@@ -16,23 +16,38 @@ export class App extends Component {
     isOpen: false,
     isLoadMore: false,
     isEmpty: false,
+    currentImage: {},
+    isLoading: false,
   };
 
   componentDidUpdate(_, prevState) {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
-      getPhotos(query, page).then(({ results, total }) => {
-        if (!results.length) {
-          this.setState({ isEmpty: true });
-          return;
-        }
-        this.setState(prev => ({
-          photos: [...prev.photos, ...results],
-          isLoadMore: page < Math.ceil(total / 12),
-        }));
+      this.setState({ isLoading: true });
+      getPhotos(query, page)
+        .then(({ hits: results, totalHits: total }) => {
+          if (!results.length) {
+            this.setState({ isEmpty: true });
 
-        console.log('Updated photos:', results);
-      });
+            return;
+          }
+          this.setState(prev => ({
+            photos: [...prev.photos, ...results],
+            isLoadMore: page < Math.ceil(total / 12),
+          }));
+          toast.info('Pictures were found!', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
+          console.log('Updated photos:', results);
+        })
+        .finally(() => this.setState({ isLoading: false }));
     }
   }
 
@@ -44,29 +59,37 @@ export class App extends Component {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
-  handleOpenModal = () => {
-    this.setState({ isOpen: true, isLoadMore: true });
+  handleOpenModal = currentImage => {
+    this.setState({ isOpen: true, currentImage });
   };
 
   handleCloseModal = () => {
-    this.setState({ isOpen: false, isLoadMore: false });
+    this.setState({ isOpen: false, currentImage: {} });
   };
 
   render() {
-    const { photos, isLoadMore, isOpen, isEmpty } = this.state;
+    const { photos, isLoadMore, isOpen, isEmpty, currentImage, isLoading } =
+      this.state;
     return (
-      <MainContainer>
-        <Searchbar onSubmit={this.handleSubmit} />
-        {photos && (
+      <MainContainer hasPhotos={photos.length || isEmpty > 0}>
+        <Searchbar onSubmit={this.handleSubmit} /> {isLoading && <Loader />}
+        {photos.length > 0 && (
           <ImageGallery photos={photos} openModal={this.handleOpenModal} />
         )}
-        {isEmpty && <p>There are no pictures for your query</p>}
-        {isLoadMore && <Button type="button" onClick={this.hadleLoadMore} />}
-
-        {isLoadMore && <Loader />}
-        {isOpen && <Modal close={this.handleCloseModal}></Modal>}
-        {!isLoadMore && isOpen && <Loader />}
+        {isEmpty && (
+          <NoPictures>There are no pictures for your query</NoPictures>
+        )}
+        {isLoadMore && !isEmpty && (
+          <Button type="button" onClick={this.hadleLoadMore} />
+        )}
+        {isOpen && (
+          <Modal close={this.handleCloseModal}>
+            <img src={currentImage.src} alt={currentImage.alt} width="70%" />
+          </Modal>
+        )}
       </MainContainer>
     );
   }
 }
+
+export default App;

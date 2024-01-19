@@ -30,7 +30,7 @@ export const SearchForm = styled.form`
 `;
 
 export const Button = styled.button`
-  display: inline-block;
+  display: flex;
   width: 48px;
   height: 48px;
   border: 0;
@@ -42,6 +42,8 @@ export const Button = styled.button`
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     opacity: 1;

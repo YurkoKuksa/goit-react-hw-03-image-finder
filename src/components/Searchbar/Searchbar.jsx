@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  Input,
-  SearchForm,
-  SearchbarStyle,
-  SpanLabel,
-} from './Searchbar.styled';
+
+import Logo from 'img/find.svg';
+
+import { Button, Input, SearchForm, SearchbarStyle } from './Searchbar.styled';
 
 export class Searchbar extends Component {
   state = {
@@ -27,7 +24,7 @@ export class Searchbar extends Component {
       <SearchbarStyle>
         <SearchForm onSubmit={this.handleSubmit} autoFocus>
           <Button type="submit">
-            <SpanLabel>Search</SpanLabel>
+            <img src={Logo} alt="React Logo" />
           </Button>
 
           <Input

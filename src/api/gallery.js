@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://pixabay.com/api/1.0',
+  baseURL: 'https://pixabay.com/api/',
   params: {
     key: '41243190-013300446e5136f16c0416e3e',
   },

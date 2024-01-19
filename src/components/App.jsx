@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Searchbar from './Searchbar/Searchbar';
-import { getPhotos } from './api/gallery';
+import { getPhotos } from '../api/gallery';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';

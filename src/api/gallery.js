@@ -12,10 +12,6 @@ export const getPhotos = async (query, page) => {
     q: query,
     page,
     per_page: 12,
-    colors: 'grayscale',
-    orientation: 'vertical',
-    safesearch: true,
-    image_type: 'photo',
   };
 
   try {
